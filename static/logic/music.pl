@@ -6,29 +6,18 @@ notes([a, a_sharp, b, c, c_sharp, d, d_sharp, e, f, f_sharp, g, g_sharp]).
 % These notes can be combined in various ways.
 % One such way is a "major triad"
 
-major_triad_notes(Base, MajorThird, PerfectFifth) :-
+triad(Triad, SecondInterval, ThirdInterval) :-
     notes(Notes),
     length(Notes, NumberOfNotes),
     member(Base, Notes),
-    member(MajorThird, Notes),
-    member(PerfectFifth, Notes),
+    member(SecondNote, Notes),
+    member(ThirdNote, Notes),
     nth0(IndexOfBase, Notes, Base),
-    nth0(IndexOfThird, Notes, MajorThird),
-    nth0(IndexOfFifth, Notes, PerfectFifth),
-    IndexOfThird is (IndexOfBase + 4) mod NumberOfNotes,
-    IndexOfFifth is (IndexOfBase + 7) mod NumberOfNotes.
+    nth0(IndexOfSecondNote, Notes, SecondNote),
+    nth0(IndexOfThirdNote, Notes, ThirdNote),
+    IndexOfSecondNote is (IndexOfBase + SecondInterval) mod NumberOfNotes,
+    IndexOfThirdNote is (IndexOfBase + ThirdInterval) mod NumberOfNotes,
+    Triad = [Base, SecondNote, ThirdNote].
 
-minor_triad_notes(Base, MinorThird, PerfectFifth) :-
-    notes(Notes),
-    length(Notes, NumberOfNotes),
-    member(Base, Notes),
-    member(MinorThird, Notes),
-    member(PerfectFifth, Notes),
-    nth0(IndexOfBase, Notes, Base),
-    nth0(IndexOfThird, Notes, MinorThird),
-    nth0(IndexOfFifth, Notes, PerfectFifth),
-    IndexOfThird is (IndexOfBase + 3) mod NumberOfNotes,
-    IndexOfFifth is (IndexOfBase + 7) mod NumberOfNotes.
-
-major_triad(X) :- major_triad_notes(A, B, C), X = [A, B, C].
-minor_triad(X) :- minor_triad_notes(A, B, C), X = [A, B, C].
+major_triad(X) :- triad(X, 4, 7).
+minor_triad(X) :- triad(X, 3, 7).
