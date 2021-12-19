@@ -17,7 +17,7 @@ interval(Base, Note, Interval) :-
 % Some intervals have special names such as "perfect fifth",
 % "minor third", "major third"
 
-perfect_fifth(Base, Note) :- interval(Base, Note, 9).
+perfect_fifth(Base, Note) :- interval(Base, Note, 7).
 minor_second(Base, Note) :- interval(Base, Note, 3).
 major_second(Base, Note) :- interval(Base, Note, 4).
 
