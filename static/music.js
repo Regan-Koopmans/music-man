@@ -13,23 +13,14 @@ let handleRuntimeError = (err) => {
 }
 
 let client = new XMLHttpRequest();
-client.open('GET', '/static/logic/music.pl');
+client.open('GET', '/static/logic/music.prolog');
 client.onreadystatechange = () => {
     session = pl.create();
 
     session.consult(client.responseText, {
         success: () => {
-            session.query("keys(X).", {
-                success: () => {
-                    session.answer({
-                        success: (answer) => console.log(session.format_answer(answer)),
-                        error: handleRuntimeError,
-                        fail: function () { /* Fail */
-                        },
-                        limit: function () { /* Limit exceeded */
-                        }
-                    })
-                },
+            session.query("member(X, Notes). notes(Notes). ", {
+                success: () => session.answers((answers) => console.log(session.format_answer(answers)), 2),
                 error: handleQueryParseFailure
             });
         },
