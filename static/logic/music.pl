@@ -1,3 +1,5 @@
 :- use_module(library(lists)).
-% keys/1
-keys([a,b,c,d,e,f,g]).
+
+% Western music divides frequency into 12 tones. They are named thusly:
+notes([a, a_sharp, b, c, c_sharp, d, d_sharp, e, f, f_sharp, g, g_sharp]).
+
