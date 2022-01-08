@@ -36,3 +36,15 @@ minor_triad(Triad) :-
     minor_second(Base, MinorSecond),
     perfect_fifth(Base, Fifth),
     Triad =[Base, MinorSecond, Fifth].
+
+
+major_scale(Base, Scale) :-
+    notes(Notes),
+    member(Base, Notes),
+    interval(Base, SuperTonic, 2),
+    interval(Base, Mediant, 4),
+    interval(Base, SubDominant, 5),
+    interval(Base, Dominant, 7),
+    interval(Base, SubMediant, 9),
+    interval(Base, LeadingTone, 11),
+    Scale = [Base, SuperTonic, Mediant, SubDominant, Dominant, SubMediant, LeadingTone, Base].
