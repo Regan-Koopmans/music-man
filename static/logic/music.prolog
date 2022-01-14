@@ -48,3 +48,16 @@ major_scale(Base, Scale) :-
     interval(Base, SubMediant, 9),
     interval(Base, LeadingTone, 11),
     Scale = [Base, SuperTonic, Mediant, SubDominant, Dominant, SubMediant, LeadingTone, Base].
+
+
+natural_minor(Base, Scale) :-
+    notes(Notes),
+    member(Base, Notes),
+    interval(Base, SuperTonic, 2),
+    interval(Base, Mediant, 3),
+    interval(Base, SubDominant, 5),
+    interval(Base, Dominant, 7),
+    interval(Base, SubMediant, 8),
+    interval(Base, LeadingTone, 10),
+    Scale = [Base, SuperTonic, Mediant, SubDominant, Dominant, SubMediant, LeadingTone, Base].
+
