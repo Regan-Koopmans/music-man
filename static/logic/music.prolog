@@ -38,26 +38,13 @@ minor_triad(Triad) :-
     Triad =[Base, MinorSecond, Fifth].
 
 
+scale(_, [], []) :- true.
+scale(Base, [Interval_Head|Interval_Tail], [H|T]) :- 
+    interval(Base, H, Interval_Head),
+    scale(Base, Interval_Tail, T).
+
 major_scale(Base, Scale) :-
-    notes(Notes),
-    member(Base, Notes),
-    interval(Base, SuperTonic, 2),
-    interval(Base, Mediant, 4),
-    interval(Base, SubDominant, 5),
-    interval(Base, Dominant, 7),
-    interval(Base, SubMediant, 9),
-    interval(Base, LeadingTone, 11),
-    Scale = [Base, SuperTonic, Mediant, SubDominant, Dominant, SubMediant, LeadingTone, Base].
+    scale(Base, [0, 2, 4, 5, 7, 9, 11, 0], Scale).
 
-
-natural_minor(Base, Scale) :-
-    notes(Notes),
-    member(Base, Notes),
-    interval(Base, SuperTonic, 2),
-    interval(Base, Mediant, 3),
-    interval(Base, SubDominant, 5),
-    interval(Base, Dominant, 7),
-    interval(Base, SubMediant, 8),
-    interval(Base, LeadingTone, 10),
-    Scale = [Base, SuperTonic, Mediant, SubDominant, Dominant, SubMediant, LeadingTone, Base].
-
+natural_minor_scale(Base, Scale) :-
+    scale(Base, [0, 2, 3, 5, 7, 8, 10, 0], Scale).
