@@ -37,14 +37,24 @@ minor_triad(Triad) :-
     perfect_fifth(Base, Fifth),
     Triad =[Base, MinorSecond, Fifth].
 
+% Collections of notes can sometimes be called a "scale". These are
+% notes that have some relationship with one another. For now, let 
+% us just say that a scale is a Base note with a number of other 
+% Intervals
 
 scale(_, [], []) :- true.
 scale(Base, [Interval_Head|Interval_Tail], [H|T]) :- 
     interval(Base, H, Interval_Head),
     scale(Base, Interval_Tail, T).
 
-major_scale(Base, Scale) :-
-    scale(Base, [0, 2, 4, 5, 7, 9, 11, 0], Scale).
+% Using our concept of scales we defined above, we can define the
+% major scale. Most people perceive this as a "happy" collection
+% of notes.
 
-natural_minor_scale(Base, Scale) :-
-    scale(Base, [0, 2, 3, 5, 7, 8, 10, 0], Scale).
+major_scale(Base, Scale) :- scale(Base, [0, 2, 4, 5, 7, 9, 11, 0], Scale).
+
+% Or a minor scale, which most people perceive as being "sad" or
+% contemplative. There are multiple minor scales, but this is
+% note important at this point.
+
+natural_minor_scale(Base, Scale) :- scale(Base, [0, 2, 3, 5, 7, 8, 10, 0], Scale).
