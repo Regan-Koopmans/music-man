@@ -13,7 +13,7 @@ let handleRuntimeError = (err) => {
 }
 
 let client = new XMLHttpRequest();
-client.open('GET', '/static/logic/music.prolog');
+client.open('GET', '/logic/music.prolog');
 client.onreadystatechange = () => {
     session = pl.create();
 

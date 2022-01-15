@@ -1,2 +1,6 @@
 .idea/
 music_man
+
+# Added by cargo
+
+/target
