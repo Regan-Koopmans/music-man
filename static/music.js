@@ -15,12 +15,11 @@ let handleRuntimeError = (err) => {
 let client = new XMLHttpRequest();
 client.open('GET', '/logic/music.prolog');
 client.onreadystatechange = () => {
-    session = pl.create();
-
-    session.consult(client.responseText, {
+    window.session = pl.create();
+    window.session.consult(client.responseText, {
         success: () => {
-            session.query("member(X, Notes). notes(Notes). ", {
-                success: () => session.answers((answers) => console.log(session.format_answer(answers)), 2),
+            window.session.query("notes(Notes). ", {
+                success: () => window.session.answers((answers) => console.log(window.session.format_answer(answers)), 2),
                 error: handleQueryParseFailure
             });
         },
@@ -29,5 +28,13 @@ client.onreadystatechange = () => {
 
 }
 client.send();
-
+const node = document.getElementById("query");
+node.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        window.session.query(node.value, {
+            success: () => window.session.answers((answers) => console.log(window.session.format_answer(answers)), 2),
+            error: handleQueryParseFailure
+        });
+    }
+});
 
