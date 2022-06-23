@@ -58,3 +58,20 @@ major_scale(Base, Scale) :- scale(Base, [0, 2, 4, 5, 7, 9, 11, 0], Scale).
 % note important at this point.
 
 natural_minor_scale(Base, Scale) :- scale(Base, [0, 2, 3, 5, 7, 8, 10, 0], Scale).
+
+% A chord is a collection of notes played together. 
+
+% A major chord contains notes from a major triad.
+chord(Name, ChordNotes) :-
+    major_triad(Triad),
+    forall(member(Element, ChordNotes), member(Element, Triad)),
+    [H|_] = Triad,
+    format(atom(Name),'~w major', H).
+
+
+% A minor chord contains notes from a minor triad.
+chord(Name, ChordNotes) :-
+    minor_triad(Triad),
+    forall(member(Element, ChordNotes), member(Element, Triad)),
+    [H|_] = Triad,
+    format(atom(Name),'~w minor', H).
